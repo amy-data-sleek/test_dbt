@@ -1,0 +1,13 @@
+version: 2
+
+models:
+    - name: Dim_Page
+      description: "Dim_Page_Model"
+      columns:
+          - name: Page_Key
+            description: "The primary key for Dim_Page"
+            tests:
+                - unique
+                - not_null
+
+    

@@ -1,0 +1,25 @@
+{{ config(materialized='table',
+    unique_key = 'Page_Key'
+
+) }}
+
+CREATE OR REPLACE SEQUENCE sequence START = 1;
+
+with Dim_Page as (
+
+    Select 
+    seq.nextval AS Page_Key,
+    EVENT_TYPE,
+    EVENT_PROPERTIES:name::string as Landing_Page_Name, 
+    EVENT_PROPERTIES:path::string as Website_Path,
+    EVENT_PROPERTIES:title::string as Title, 
+    EVENT_PROPERTIES:url::string as Url,
+    EVENT_PROPERTIES:from::string as "From", 
+    EVENT_PROPERTIES:to::string as "To"
+    from "DB_53890_SHARE"."SCHEMA_214191"."EVENTS_214191",
+    table(getnextval(sequence)) seq
+
+)
+
+select *
+from Dim_Page
